@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+
+<app-danger-alert *ngIf="error" [message]="responseMessage"></app-danger-alert>
+<app-success-alert *ngIf="success" [message]="responseMessage"></app-success-alert>
+
+<div class="container mt-5 mb-5">
+
+  <h2 class="mb-4">{{'userManagement' | translate}}</h2>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      {{'changeUsername' | translate}}
+    </div>
+    <div class="card-body">
+      <!-- Input-Felder für Fragen -->
+      <form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
+        <div class="mb-3">
+          <label for="questionInput1" class="form-label">{{'username' | translate}}</label>
+          <input formControlName="username" type="text" class="form-control" id="questionInput1"
+                 placeholder="{{'enterNewUsername' | translate}}">
+        </div>
+
+        <button [disabled]="!usernameForm.valid" type="submit" class="btn btn-primary mt-3">{{'changeUsername' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="card mb-4">
+    <div class="card-header">
+      {{'changeEmail' | translate}}
+    </div>
+    <div class="card-body">
+      <!-- Input-Felder für Fragen -->
+      <form [formGroup]="emailForm" (ngSubmit)="changeEmail()">
+        <div class="mb-3">
+          <label for="questionInput2" class="form-label">Email</label>
+          <input formControlName="email" type="text" class="form-control" id="questionInput2"
+                 placeholder="{{'enterNewEmail' | translate}}">
+        </div>
+
+        <button [disabled]="!emailForm.valid" type="submit" class="btn btn-primary mt-3">{{'changeEmail' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="card mb-4">
+    <div class="card-header">
+      {{'changePassword' | translate}}
+    </div>
+    <div class="card-body">
+      <!-- Input-Felder für Fragen -->
+      <form [formGroup]="passwordFrom" (ngSubmit)="changePassword()">
+        <div class="mb-3">
+          <label for="questionInput3" class="form-label">{{'password' | translate}}</label>
+          <input formControlName="newPassword" type="password" class="form-control" id="questionInput3"
+                 placeholder="{{'enterNewPassword' | translate}}">
+          <label for="questionInput4" class="form-label">{{'passwordConfirm' | translate}}</label>
+          <input formControlName="newPasswordConfirm" type="password" class="form-control" id="questionInput4"
+                 placeholder="{{'enterNewPasswordAgain' | translate}}">
+        </div>
+
+        <button [disabled]="!passwordValid()" type="submit" class="btn btn-primary mt-3">{{'changePassword' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+<app-footer></app-footer>

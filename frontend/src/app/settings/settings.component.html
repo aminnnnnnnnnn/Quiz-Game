@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+
+  <div class="card">
+    <div class="card-header">
+      <h2>{{'settings' | translate}}</h2>
+    </div>
+
+    <div class="card-body">
+      <form (ngSubmit)="saveSettings()" name="settingsForm">
+        <div class="form-group mb-6">
+          <label for="language">{{'language' | translate}}</label>
+          <select class="form-control" id="language" #selectedLang (change)="switchLanguage(selectedLang.value)" name="language">
+            <option *ngFor="let language of translate.getLangs()" [value]="language" [selected]="language === translate.currentLang">{{language}}</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+
+
+</div>
+<app-footer></app-footer>

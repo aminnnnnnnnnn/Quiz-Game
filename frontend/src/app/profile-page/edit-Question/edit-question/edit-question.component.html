@@ -1,0 +1,35 @@
+<ng-template #content let-modal>
+    <div class="card-header">
+        Frage bearbeiten
+    </div>
+    <div class="card-body">
+        <!-- Input-Felder für Fragen -->
+        <form [formGroup]="editQuestionForm" (ngSubmit)="editQuestion()">
+            <div class="mb-3">
+                <label for="questionInput" class="form-label">Frage</label>
+                <input formControlName="question" type="text" class="form-control" id="questionInput" placeholder="Geben Sie die Frage ein...">
+            </div>
+
+            <!-- Antwortmöglichkeiten und die richtige Antwort auswählen -->
+            <div class="mb-3">
+                <label class="form-label">Antwortmöglichkeiten</label>
+                <div class="mb-2">
+                    <input formControlName="answer1" type="text" class="form-control mb-2" placeholder="Antwort 1">
+                    <input formControlName="answer2" type="text" class="form-control mb-2" placeholder="Antwort 2">
+                    <input formControlName="answer3" type="text" class="form-control mb-2" placeholder="Antwort 3">
+                    <input formControlName="answer4" type="text" class="form-control mb-2" placeholder="Antwort 4">
+                </div>
+
+                <label class="form-label">Richtige Antwort</label>
+                <select formControlName="solution" class="form-select" placeholder="Antwort 1">
+                    <option value="1">Antwort 1</option>
+                    <option value="2">Antwort 2</option>
+                    <option value="3">Antwort 3</option>
+                    <option value="4">Antwort 4</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Frage bearbeiten</button>
+        </form>
+    </div>
+</ng-template>

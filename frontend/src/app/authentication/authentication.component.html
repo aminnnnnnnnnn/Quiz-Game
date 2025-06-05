@@ -1,0 +1,59 @@
+<app-danger-alert *ngIf="error" [message]="responseMessage"></app-danger-alert>
+<app-success-alert *ngIf="success" [message]="responseMessage"></app-success-alert>
+
+
+<div class="section" >
+  <div class="container">
+    <div class="row full-height justify-content-center">
+      <div class="col-12 text-center align-self-center py-5">
+        <div class="section pb-5 pt-5 pt-sm-2 text-center">
+          <h6 class="mb-0 pb-3"><span>{{'login' | translate}}</span><span>{{'signup' | translate}}</span></h6>
+          <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" [(ngModel)]="isLoginMode"/>
+          <label for="reg-log"></label>
+          <div class="card-3d-wrap mx-auto">
+            <div class="card-3d-wrapper">
+              <!--Log in-->
+              <div class="card-front" >
+                <div class="center-wrap">
+                  <div class="section text-center">
+                    <h4 class="mb-4 pb-3">Log In</h4>
+                    <div class="form-group">
+                      <input type="email" [(ngModel)]="lemail" class="form-style" placeholder="{{'yourEmail' | translate}}" id="logemail" autocomplete="off">
+                      <i class="input-icon uil uil-at"></i>
+                    </div>
+                    <div class="form-group mt-2">
+                      <input type="password" [(ngModel)]="lpassword" class="form-style" placeholder="{{'yourPassword' | translate}}" id="logpass" autocomplete="off">
+                      <i class="input-icon uil uil-lock-alt"></i>
+                    </div>
+                    <a  (click)="logIn()" class="btn mt-4">{{'submit' | translate}}</a>
+                  </div>
+                </div>
+              </div>
+              <!--Sign up-->
+              <div class="card-back" >
+                <div class="center-wrap">
+                  <div class="section text-center">
+                    <h4 class="mb-4 pb-3">Sign Up</h4>
+                    <div class="form-group">
+                      <input type="text" [(ngModel)]="username" class="form-style" placeholder="{{'yourUsername' | translate}}" id="logname" autocomplete="off">
+                      <i class="input-icon uil uil-user"></i>
+                    </div>
+                    <div class="form-group mt-2">
+                      <input type="email" [(ngModel)]="email" class="form-style" placeholder="{{'yourEmail' | translate}}" id="logemail_" autocomplete="off">
+                      <i class="input-icon uil uil-at"></i>
+                    </div>
+                    <div class="form-group mt-2">
+                      <input type="password" [(ngModel)]="password" class="form-style" placeholder="{{'yourPassword' | translate}}" id="logpass_" autocomplete="off">
+                      <i class="input-icon uil uil-lock-alt"></i>
+                    </div>
+                    <a (click)="signUp()" class="btn mt-4">{{'submit' | translate}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

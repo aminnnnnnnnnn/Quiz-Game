@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+
+<app-danger-alert *ngIf="error" [message]="responseMessage"></app-danger-alert>
+<app-success-alert *ngIf="success" [message]="responseMessage"></app-success-alert>
+
+<div class="container mt-5 mb-5">
+
+  <ng-container *ngIf="!isAdmin">
+    <h2>{{'thisSiteIsOnlyAvailableForAdmins' | translate}}</h2>
+  </ng-container>
+
+  <ng-container *ngIf="isAdmin">
+    <h2 class="mb-4">{{'questionAdministration' | translate}}</h2>
+
+    <!-- Fragen-Bereich -->
+    <div class="card mb-4">
+      <div class="card-header">
+        {{'addQuestion' | translate}}
+      </div>
+      <div class="card-body">
+        <!-- Input-Felder für Fragen -->
+        <form [formGroup]="addQuestionForm" (ngSubmit)="addQuestion()">
+          <div class="mb-3">
+            <label for="questionInput" class="form-label">{{'question' | translate}}</label>
+            <input formControlName="question" type="text" class="form-control" id="questionInput" placeholder="{{'enterTheQuestion' | translate}}">
+          </div>
+
+          <!-- Antwortmöglichkeiten und die richtige Antwort auswählen -->
+          <div class="mb-3">
+            <label class="form-label">{{'questionOptions' | translate}}</label>
+            <div class="mb-2">
+              <input formControlName="answer1" type="text" class="form-control mb-2" placeholder="{{'answer1' | translate}}">
+              <input formControlName="answer2" type="text" class="form-control mb-2" placeholder="{{'answer2' | translate}}">
+              <input formControlName="answer3" type="text" class="form-control mb-2" placeholder="{{'answer3' | translate}}">
+              <input formControlName="answer4" type="text" class="form-control mb-2" placeholder="{{'answer4' | translate}}">
+            </div>
+
+            <label class="form-label">{{'correctAnswer' | translate}}</label>
+            <select formControlName="solution" class="form-select">
+              <option value="1" [defaultSelected]="true">{{'answer1' | translate}}</option>
+              <option value="2">{{'answer2' | translate}}</option>
+              <option value="3">{{'answer3' | translate}}</option>
+              <option value="4">{{'answer4' | translate}}</option>
+            </select>
+          </div>
+
+          <button [disabled]="!addQuestionForm.valid" type="submit" class="btn btn-primary mt-3">{{'addQuestion' | translate}}</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        {{'deleteChangeQuestion' | translate}}
+      </div>
+
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let question of questions" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ question.question.question }}
+            <div>
+            <a style="color: black; cursor: pointer;">
+              <svg (click)="openModal(question)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+              </svg>
+            </a>
+            <a style="color: crimson; cursor: pointer;">
+              <svg (click)="removeQuestion(question)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+              </svg>
+            </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">{{'editQuestion' | translate}}</h4>
+            <button type="button" (click)="closeModal()" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="card m-3">
+            <div class="card-body">
+              <!-- Input-Felder für Fragen -->
+              <form [formGroup]="editQuestionForm" (ngSubmit)="editQuestion()">
+                <div class="mb-3">
+                  <label for="questionInput" class="form-label">{{'question' | translate}}</label>
+                  <input formControlName="question" type="text" class="form-control" id="question2Input" placeholder="{{getQuestionToEdit()}}">
+                </div>
+
+                <!-- Antwortmöglichkeiten und die richtige Antwort auswählen -->
+                <div class="mb-3">
+                  <label class="form-label">{{'answerOptions' | translate}}</label>
+                  <div class="mb-2">
+                    <input formControlName="answer1" type="text" class="form-control mb-2" placeholder="{{getAnswer1ToEdit()}}">
+                    <input formControlName="answer2" type="text" class="form-control mb-2" placeholder="{{getAnswer2ToEdit()}}">
+                    <input formControlName="answer3" type="text" class="form-control mb-2" placeholder="{{getAnswer3ToEdit()}}">
+                    <input formControlName="answer4" type="text" class="form-control mb-2" placeholder="{{getAnswer4ToEdit()}}">
+                  </div>
+
+                  <label class="form-label">{{'answerOptions' | translate}}</label>
+                  <select formControlName="solution" class="form-select" [selectedIndex]="getSelectedIndex()">
+                    <option value="1">{{'answer1' | translate}}</option>
+                    <option value="2">{{'answer2' | translate}}</option>
+                    <option value="3">{{'answer3' | translate}}</option>
+                    <option value="4">{{'answer4' | translate}}</option>
+                  </select>
+                </div>
+
+                <button [disabled]="!editQuestionForm.valid" type="submit" class="btn btn-primary mt-3">{{'save' | translate}}</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" (click)="closeModal()" class="btn btn-danger" data-bs-dismiss="modal">{{'close' | translate}}</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div style="width: 50px; height: 100px; visibility: hidden; opacity: 0;"></div>
+    <div style="width: 50px; height: 50px; visibility: hidden; opacity: 0;"></div>
+  </ng-container>
+
+
+
+</div>
+
+
+
+
+
+<app-footer></app-footer>

@@ -1,0 +1,44 @@
+POST /user
+Host: localhost:3000
+content-type: application/json
+
+{
+  "username": "hallo",
+  "password": "1234567",
+  "dateOfBirth": "01.01.2000",
+  "email": "hallo@gmail.com"
+}
+
+###
+POST /login
+Host: localhost:3000
+content-type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+
+###
+POST /login
+Host: localhost:3000
+content-type: application/json
+
+{
+  "email": "hallo@gmail.com",
+  "password": "1234567"
+}
+
+###
+POST /logout
+Host: localhost:3000
+###
+
+GET /user/2
+host: localhost:3000
+content-type: application/json
+
+###
+GET /player/2/statistics
+host: localhost:3000
+content-type: application/json

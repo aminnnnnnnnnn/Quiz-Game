@@ -1,0 +1,50 @@
+.nav-link{cursor: pointer}
+.navbar-nav{margin-left: 100px}
+.nav-item{margin-right: 50px}
+.profile {
+  display: inline-block;
+  margin-right: 10px;
+}
+.dropdown{margin-right: 100px;}
+.dropdown-item{cursor: pointer}
+.navbar-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.spielen {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item img {
+  max-width: 150px;
+  max-height: 60px;
+  display: block;
+  margin-bottom: -15px;
+  margin-top: -15px;
+}
+
+.nav-item svg {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+img:hover {
+  transform: scale(1.1); /* Bild vergrößern */
+  transition: transform 0.5s; /* Animation über 0,5 Sekunden */
+}
+.logo{cursor: none;}
+
+
+.setHover:hover {
+  cursor: pointer;
+}
+

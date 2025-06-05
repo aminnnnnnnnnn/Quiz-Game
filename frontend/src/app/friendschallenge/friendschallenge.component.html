@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <div class="d-flex justify-content-center row">
+    <div class="col-md-10 col-lg-10">
+      <div class="border">
+
+        <div class="question bg-white p-3 border-bottom">
+          <div class="d-flex flex-row justify-content-between align-items-center mcq">
+            <h4 class="text-center">Friends Challenge: {{ activeUser }} vs {{ secondPlayerName }}</h4><span>({{ currentQuestionIndex + 1 }} of {{ questions.length }})</span>
+          </div>
+
+          <p *ngIf="!quizFinished && !showResult && currentPlayer === 0">{{ activeUser }}'s Turn</p>
+          <p *ngIf="!quizFinished && !showResult && currentPlayer === 1">{{ secondPlayerName }}'s Turn</p>
+        </div>
+
+        <div class="question bg-white p-3 border-bottom">
+          <div class="d-flex flex-row align-items-center question-title">
+            <h3 class="text-danger">Q.</h3>
+            <h5 class="mt-1 ml-2">{{ questions[currentQuestionIndex].question }}</h5>
+          </div>
+          <div class="ans ml-2" *ngFor="let option of questions[currentQuestionIndex].options; let i = index">
+            <label class="radio">
+              <input type="radio"
+                     [name]="currentQuestionIndex"
+                     [value]="option"
+                     (change)="selectOption(i)"
+                     [disabled]="!isCurrentPlayerTurn()"
+                     [checked]="selectedOption === i"
+                     [ngClass]="{'reset-style': showResult}">
+              <span>{{ option }}</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+          <p *ngIf="!quizFinished && !showResult">{{'timeRemaining' | translate}} {{ remainingTime }} {{'seconds' | translate}}</p>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center p-3 bg-white" *ngIf="quizFinished">
+          <div class="text-center">
+            <h2>{{'quizFinished' | translate}}</h2>
+            <p>{{activeUser}} {{'score' | translate}}: {{ scores[0] }}</p>
+            <p>{{secondPlayerName}} {{'score' | translate}}: {{ scores[1] }}</p>
+            <p *ngIf="scores[0] > scores[1]">{{'theWinnerIs' | translate}} {{activeUser}}</p>
+            <p *ngIf="scores[1] > scores[0]">{{'theWinnerIs' | translate}} {{secondPlayerName}}</p>
+            <p *ngIf="scores[0] === scores[1]">{{'itsATie' | translate}}!</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
